@@ -10,20 +10,20 @@ namespace WebApiMVC_Viduc.Controllers
     public class TransaccionController : ControllerBase
     {
         private ModelContext _context;
-        //Constructor para crear un contexto del controlador de usuario  
+        //Constructor para crear un contexto del controlador de transacciones  
         public TransaccionController(ModelContext context)
         {
             _context = context;
         }
 
 
-        //Metodo de tipo GET para listar los usuarios
+        //Metodo de tipo GET para listar las transacciones
         [HttpGet]
         public async Task<List<Transaccion>> Listar()
         {
             return await _context.Transaccions.ToListAsync();
         }
-        //Metodo de tipo GET para buscar usuarios por id_user
+        //Metodo de tipo GET para buscar transacciones por id_trans
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaccion>> BuscarPorId(decimal id)
         {
@@ -35,7 +35,7 @@ namespace WebApiMVC_Viduc.Controllers
                 return NotFound();
         }
 
-        //Metodo de tipo POST para añadir usuarios a la base de datos
+        //Metodo de tipo POST para añadir transacciones a la base de datos
         [HttpPost]
         public async Task<ActionResult<Transaccion>> Guardar(Transaccion t)
         {
@@ -43,7 +43,8 @@ namespace WebApiMVC_Viduc.Controllers
             {
                 await _context.Transaccions.AddAsync(t);
                 await _context.SaveChangesAsync();
-
+               
+                await _context.SaveChangesAsync();
 
                 return t;
             }
@@ -52,7 +53,7 @@ namespace WebApiMVC_Viduc.Controllers
                 return StatusCode(500, "Se encontró un error");
             }
         }
-        //Metodo de tipo PUT para actualizar los usuarios
+        //Metodo de tipo PUT para actualizar las transacciones
         [HttpPut]
         public async Task<ActionResult<Transaccion>> Actualizar(Transaccion t)
         {
@@ -77,7 +78,7 @@ namespace WebApiMVC_Viduc.Controllers
                 return StatusCode(500, "Se encontró un error");
             }
         }
-        //Metodo de tipo DELETE para eliminar el usuario por su id_user
+        //Metodo de tipo DELETE para eliminar una transaccion por el id_trans
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Eliminar(decimal id)
